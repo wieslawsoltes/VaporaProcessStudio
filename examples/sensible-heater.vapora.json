@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "name": "Sensible heater benchmark",
+  "description": "Steady-state process simulation",
+  "components": [
+    "benzene",
+    "toluene"
+  ],
+  "method": "IDEAL-RAOULT",
+  "settings": {
+    "tolerance": 1e-8,
+    "maxIterations": 250,
+    "damping": 0.7,
+    "acceleration": "wegstein",
+    "strictRange": false
+  },
+  "nodes": [
+    {
+      "id": "feed",
+      "tag": "FEED",
+      "type": "feed",
+      "x": 70,
+      "y": 180,
+      "cfg": {
+        "F": 100,
+        "T": 338.15,
+        "P": 101325,
+        "z": {
+          "benzene": 0.5,
+          "toluene": 0.5
+        }
+      }
+    },
+    {
+      "id": "unit",
+      "tag": "HEATER",
+      "type": "heater",
+      "x": 350,
+      "y": 180,
+      "cfg": {
+        "mode": "T",
+        "T": 348.15,
+        "Q": 200000,
+        "dP": 0
+      }
+    },
+    {
+      "id": "product",
+      "tag": "PRODUCT",
+      "type": "product",
+      "x": 650,
+      "y": 180,
+      "cfg": {}
+    }
+  ],
+  "streams": [
+    {
+      "id": "in",
+      "tag": "IN",
+      "kind": "material",
+      "from": {
+        "node": "feed",
+        "port": "out"
+      },
+      "to": {
+        "node": "unit",
+        "port": "in"
+      }
+    },
+    {
+      "id": "out",
+      "tag": "OUT",
+      "kind": "material",
+      "from": {
+        "node": "unit",
+        "port": "out"
+      },
+      "to": {
+        "node": "product",
+        "port": "in"
+      }
+    }
+  ],
+  "view": {
+    "x": 35,
+    "y": 40,
+    "zoom": 1
+  },
+  "units": "Engineering"
+}

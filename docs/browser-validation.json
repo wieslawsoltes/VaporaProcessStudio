@@ -1,0 +1,31 @@
+{
+  "checks": [
+    "Default recycle converges in a real Worker",
+    "Global material balance",
+    "Specification edits invalidate numerical results",
+    "Changing drum temperature changes computed vapor flow",
+    "Undo restores temperature specification",
+    "Redo restores changed specification",
+    "Flash phase result inspector displays calculated flow",
+    "Component selection dialog opens",
+    "Fahrenheit input conversion",
+    "Sensitivity returns 13 independently calculated points",
+    "Sensitivity contains converged results",
+    "Palette creates semantic model blocks",
+    "Port picking connects material topology",
+    "Newly built feed/heater/product process solves",
+    "Canvas drag updates snapped model position",
+    "Geometry-only drag preserves computed results",
+    "Delete removes node and attached streams",
+    "Undo restores deleted topology",
+    "File input imports a saved project",
+    "Mobile viewport contains the application width",
+    "Mobile initialization computes the same process",
+    "No uncaught browser errors"
+  ],
+  "passed": 22,
+  "uncaughtErrors": [],
+  "backend": "Canvas 2D",
+  "gpuTested": false,
+  "context": "Opaque about:blank, standalone classic Worker; Canvas 2D fallback"
+}

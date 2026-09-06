@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "name": "Aromatics recovery",
+  "description": "Benzene / toluene separation with liquid recycle",
+  "components": [
+    "benzene",
+    "toluene"
+  ],
+  "method": "IDEAL-RAOULT",
+  "settings": {
+    "tolerance": 1e-8,
+    "maxIterations": 250,
+    "damping": 0.7,
+    "acceleration": "wegstein",
+    "strictRange": false
+  },
+  "nodes": [
+    {
+      "id": "feed",
+      "tag": "FEED-101",
+      "type": "feed",
+      "x": 50,
+      "y": 170,
+      "cfg": {
+        "F": 100,
+        "T": 338.15,
+        "P": 101325,
+        "z": {
+          "benzene": 0.55,
+          "toluene": 0.45
+        }
+      }
+    },
+    {
+      "id": "mixer",
+      "tag": "M-101",
+      "type": "mixer",
+      "x": 240,
+      "y": 170,
+      "cfg": {}
+    },
+    {
+      "id": "pump",
+      "tag": "P-101",
+      "type": "pump",
+      "x": 430,
+      "y": 170,
+      "cfg": {
+        "P": 300000,
+        "efficiency": 0.75
+      }
+    },
+    {
+      "id": "heater",
+      "tag": "E-101",
+      "type": "heater",
+      "x": 620,
+      "y": 170,
+      "cfg": {
+        "mode": "T",
+        "T": 373.15,
+        "Q": 200000,
+        "dP": 0
+      }
+    },
+    {
+      "id": "valve",
+      "tag": "V-101",
+      "type": "valve",
+      "x": 810,
+      "y": 170,
+      "cfg": {
+        "P": 101325
+      }
+    },
+    {
+      "id": "flash",
+      "tag": "F-201",
+      "type": "flash",
+      "x": 1000,
+      "y": 170,
+      "cfg": {
+        "mode": "TP",
+        "T": 368.15,
+        "P": 101325,
+        "Q": 0
+      }
+    },
+    {
+      "id": "vapor",
+      "tag": "DISTILLATE",
+      "type": "product",
+      "x": 1240,
+      "y": 80,
+      "cfg": {}
+    },
+    {
+      "id": "splitter",
+      "tag": "S-101",
+      "type": "splitter",
+      "x": 1230,
+      "y": 300,
+      "cfg": {
+        "fraction": 0.35
+      }
+    },
+    {
+      "id": "bottoms",
+      "tag": "BOTTOMS",
+      "type": "product",
+      "x": 1450,
+      "y": 300,
+      "cfg": {}
+    },
+    {
+      "id": "cooler",
+      "tag": "E-102",
+      "type": "cooler",
+      "x": 970,
+      "y": 440,
+      "cfg": {
+        "mode": "T",
+        "T": 338.15,
+        "Q": -200000,
+        "dP": 0
+      },
+      "flip": true
+    },
+    {
+      "id": "recycle",
+      "tag": "R-101",
+      "type": "recycle",
+      "x": 520,
+      "y": 440,
+      "cfg": {},
+      "flip": true
+    },
+    {
+      "id": "utility",
+      "tag": "Q-RECOVERED",
+      "type": "energySink",
+      "x": 1350,
+      "y": 470,
+      "cfg": {}
+    }
+  ],
+  "streams": [
+    {
+      "id": "FEED",
+      "tag": "FEED",
+      "kind": "material",
+      "from": {
+        "node": "feed",
+        "port": "out"
+      },
+      "to": {
+        "node": "mixer",
+        "port": "in1"
+      }
+    },
+    {
+      "id": "MIXED",
+      "tag": "MIXED",
+      "kind": "material",
+      "from": {
+        "node": "mixer",
+        "port": "out"
+      },
+      "to": {
+        "node": "pump",
+        "port": "in"
+      }
+    },
+    {
+      "id": "PRESSURIZED",
+      "tag": "PRESSURIZED",
+      "kind": "material",
+      "from": {
+        "node": "pump",
+        "port": "out"
+      },
+      "to": {
+        "node": "heater",
+        "port": "in"
+      }
+    },
+    {
+      "id": "HOT-FEED",
+      "tag": "HOT-FEED",
+      "kind": "material",
+      "from": {
+        "node": "heater",
+        "port": "out"
+      },
+      "to": {
+        "node": "valve",
+        "port": "in"
+      }
+    },
+    {
+      "id": "FLASH-FEED",
+      "tag": "FLASH-FEED",
+      "kind": "material",
+      "from": {
+        "node": "valve",
+        "port": "out"
+      },
+      "to": {
+        "node": "flash",
+        "port": "in"
+      }
+    },
+    {
+      "id": "VAPOR",
+      "tag": "VAPOR",
+      "kind": "material",
+      "from": {
+        "node": "flash",
+        "port": "vapor"
+      },
+      "to": {
+        "node": "vapor",
+        "port": "in"
+      }
+    },
+    {
+      "id": "LIQUID",
+      "tag": "LIQUID",
+      "kind": "material",
+      "from": {
+        "node": "flash",
+        "port": "liquid"
+      },
+      "to": {
+        "node": "splitter",
+        "port": "in"
+      }
+    },
+    {
+      "id": "PRODUCT",
+      "tag": "PRODUCT",
+      "kind": "material",
+      "from": {
+        "node": "splitter",
+        "port": "out1"
+      },
+      "to": {
+        "node": "bottoms",
+        "port": "in"
+      }
+    },
+    {
+      "id": "RECYCLE-HOT",
+      "tag": "RECYCLE-HOT",
+      "kind": "material",
+      "from": {
+        "node": "splitter",
+        "port": "out2"
+      },
+      "to": {
+        "node": "cooler",
+        "port": "in"
+      }
+    },
+    {
+      "id": "RECYCLE-COLD",
+      "tag": "RECYCLE-COLD",
+      "kind": "material",
+      "from": {
+        "node": "cooler",
+        "port": "out"
+      },
+      "to": {
+        "node": "recycle",
+        "port": "in"
+      }
+    },
+    {
+      "id": "RECYCLE",
+      "tag": "RECYCLE",
+      "kind": "material",
+      "from": {
+        "node": "recycle",
+        "port": "out"
+      },
+      "to": {
+        "node": "mixer",
+        "port": "in2"
+      }
+    },
+    {
+      "id": "Q-102",
+      "tag": "Q-102",
+      "kind": "energy",
+      "from": {
+        "node": "cooler",
+        "port": "qout"
+      },
+      "to": {
+        "node": "utility",
+        "port": "ein"
+      }
+    }
+  ],
+  "view": {
+    "x": 35,
+    "y": 40,
+    "zoom": 1
+  },
+  "units": "Engineering"
+}

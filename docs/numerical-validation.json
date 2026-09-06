@@ -1,0 +1,130 @@
+{
+  "checks": [
+    {
+      "name": "Rachford–Rice: z=[0.5,0.5], K=[2,0.5]",
+      "actual": 0.5,
+      "expected": 0.5,
+      "absoluteError": 0,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "Mixture TP → PH temperature, K",
+      "actual": 368.15000000000975,
+      "expected": 368.15,
+      "absoluteError": 9.777068044058979e-12,
+      "tolerance": 1e-7,
+      "passed": true
+    },
+    {
+      "name": "Pure water PH latent plateau temperature, K",
+      "actual": 370,
+      "expected": 370,
+      "absoluteError": 0,
+      "tolerance": 1e-7,
+      "passed": true
+    },
+    {
+      "name": "Pure water PH latent plateau vapor fraction",
+      "actual": 0.4,
+      "expected": 0.4,
+      "absoluteError": 0,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "Default process product flow, mol/s",
+      "actual": 100.00000000000017,
+      "expected": 100,
+      "absoluteError": 1.7053025658242404e-13,
+      "tolerance": 1e-7,
+      "passed": true
+    },
+    {
+      "name": "Default process global mass residual, kg/s",
+      "actual": -1.3918415220359746e-14,
+      "expected": 0,
+      "absoluteError": 1.3918415220359746e-14,
+      "tolerance": 1e-8,
+      "passed": true
+    },
+    {
+      "name": "Default process global energy residual, W",
+      "actual": 9.699724614620209e-7,
+      "expected": 0,
+      "absoluteError": 9.699724614620209e-7,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "name": "Default process scaled recycle residual",
+      "actual": 6.447158407496458e-13,
+      "expected": 0,
+      "absoluteError": 6.447158407496458e-13,
+      "tolerance": 1e-8,
+      "passed": true
+    },
+    {
+      "name": "Default process scaled balance residual",
+      "actual": 3.8521677765007873e-13,
+      "expected": 0,
+      "absoluteError": 3.8521677765007873e-13,
+      "tolerance": 1e-8,
+      "passed": true
+    },
+    {
+      "name": "Sensible heater Q = F Cp ΔT, W",
+      "actual": 146050,
+      "expected": 146050,
+      "absoluteError": 0,
+      "tolerance": 0.00001,
+      "passed": true
+    },
+    {
+      "name": "Liquid pump W = F v ΔP / η, W",
+      "actual": 2445.567915482251,
+      "expected": 2445.567915482251,
+      "absoluteError": 0,
+      "tolerance": 1e-7,
+      "passed": true
+    }
+  ],
+  "passed": 11,
+  "diagnostics": {
+    "recycleResidual": 6.447158407496458e-13,
+    "globalEnergyResidual": 9.699724614620209e-7,
+    "globalMassResidual": -1.3918415220359746e-14,
+    "componentResiduals": [
+      -1.2789769243681803e-13,
+      -4.263256414560601e-14
+    ],
+    "balanceResidual": 3.8521677765007873e-13,
+    "totalQ": 2517991.2136202944,
+    "totalW": 4215.006911039995,
+    "feedFlow": 100,
+    "productFlow": 100.00000000000017,
+    "feedMass": 8.442376999999999,
+    "productMass": 8.442377000000015,
+    "maxBlockEnergyResidual": 0.0000016414005585829727,
+    "maxBlockComponentResidual": 1.1723955140041653e-13,
+    "tearStreams": [
+      "RECYCLE"
+    ],
+    "order": [
+      "FEED-101",
+      "M-101",
+      "P-101",
+      "E-101",
+      "V-101",
+      "F-201",
+      "DISTILLATE",
+      "S-101",
+      "BOTTOMS",
+      "E-102",
+      "R-101",
+      "Q-RECOVERED"
+    ]
+  },
+  "method": "IDEAL-RAOULT",
+  "assumptions": "IDEAL-RAOULT; constant Cp, latent heat anchors and liquid densities. Internal equation verification, not plant validation."
+}
