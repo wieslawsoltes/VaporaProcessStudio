@@ -2,7 +2,7 @@ name: Test and deploy GitHub Pages
 
 on:
   push:
-    branches: [gh-pages]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -51,3 +51,32 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify published application assets
+        env:
+          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          python3 - <<'PY'
+          import os, time, urllib.request
+          base = os.environ['SITE_URL'].rstrip('/') + '/'
+          checks = {
+              '': 'src/main.js',
+              'src/main.js': 'globalThis.vapora=',
+              'src/worker.js': 'simulate',
+              'styles.css': ':root',
+              'Vapora-Process-Studio.html': '__VAPORA_WORKER_SOURCE__',
+          }
+          for path, marker in checks.items():
+              for attempt in range(12):
+                  try:
+                      request = urllib.request.Request(base + path, headers={'Cache-Control': 'no-cache'})
+                      with urllib.request.urlopen(request, timeout=20) as response:
+                          text = response.read().decode('utf-8')
+                          if marker not in text:
+                              raise ValueError('Expected application content was not served')
+                      print('Verified: ' + base + path)
+                      break
+                  except Exception:
+                      if attempt == 11:
+                          raise
+                      time.sleep(5)
+          PY
