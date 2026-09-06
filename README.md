@@ -1,5 +1,7 @@
 # Vapora Process Studio
 
+[Open the web application](https://wieslawsoltes.github.io/VaporaProcessStudio/) · [Deployment instructions](docs/DEPLOYMENT.md)
+
 A dependency-free process-flowsheet editor and steady-state simulator built with plain HTML, CSS, JavaScript, and a WebGPU renderer with a functional Canvas 2D fallback.
 
 The numerical engine performs actual material and energy balances, ideal-mixture phase equilibrium, unit-operation calculations, recycle convergence, and sensitivity studies in a dedicated Worker. Geometry is separate from the semantic process graph.
@@ -46,6 +48,7 @@ The delivered validation includes 54 passing engine/model tests, 11 passing nume
 - [Architecture and extension points](docs/ARCHITECTURE.md)
 - [Calculated validation report](docs/VALIDATION.md)
 - [Browser validation report](docs/browser-validation.json)
+- [GitHub Pages publication and updates](docs/DEPLOYMENT.md)
 
 Run the optional browser suite with Python and Playwright:
 
